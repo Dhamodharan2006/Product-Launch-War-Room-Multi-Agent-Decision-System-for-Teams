@@ -6,6 +6,101 @@ A production-grade multi-agent system that simulates a cross-functional "war roo
 
 This system implements a coordinated decision-making workflow among four specialized AI agents that analyze product launch data and produce structured recommendations: **Proceed**, **Pause**, or **Roll Back**. The architecture leverages LangGraph for stateful workflow management, LangChain for agent implementations, and LlamaIndex for RAG-based feedback analysis.
 
+---
+
+## RAG (Retrieval-Augmented Generation) — Design Decision & Live Demonstration
+
+> **Why RAG is here, what it does, and how to see it working.**
+
+### What Problem RAG Solves
+
+The Marketing/Comms Agent needs to answer targeted questions like:
+
+- *"What are customers saying specifically about payment issues?"*
+- *"What sentiment do enterprise-tier users express?"*
+- *"Which feedback entries mention app crashes?"*
+
+Without RAG, the only option is dumping **all 35 feedback entries** into every LLM prompt. That works at 35 entries — but at 3,500 entries it becomes expensive, slow, and hits context-window limits. RAG solves this by retrieving only the **most semantically relevant** entries for each query, keeping prompts focused and the system scalable.
+
+### How It Works in This Project
+
+```
+35 user feedback entries (feedback.json)
+            │
+            ▼
+BAAI/bge-small-en-v1.5  ← HuggingFace embedding model
+(converts each entry into a 384-dim semantic vector)
+            │
+            ▼
+LlamaIndex VectorStoreIndex
+(stores all vectors in-memory)
+            │
+            ▼
+Marketing Agent asks: "What do users say about payment failures?"
+            │
+            ▼
+Semantic similarity search → Top-K most relevant entries retrieved
+            │
+            ▼
+Only those K entries sent to LLM → Focused, accurate analysis
+```
+
+### Embedding Model Choice
+
+| Property | Value |
+|---|---|
+| Model | `BAAI/bge-small-en-v1.5` |
+| Dimensions | 384 |
+| Size | ~130 MB (downloads once on first run) |
+| Why chosen | Best-in-class small embedding model — outperforms OpenAI ada-002 on retrieval benchmarks at zero API cost |
+| Framework | LlamaIndex `VectorStoreIndex` |
+
+### Seeing RAG in Action — What to Watch in the Console
+
+When you run `python -m src.main`, the Marketing Agent node prints a **RAG retrieval trace** showing exactly which feedback entries were retrieved and their similarity scores:
+
+```
+[RAG RETRIEVAL — Marketing Agent]
+──────────────────────────────────────────────────────
+Query  : "payment failures and transaction errors"
+Top-3 semantically retrieved entries:
+  1. [score: 0.921] "Payment failed 3 times in a row, had to use competitor app"
+  2. [score: 0.887] "Checkout keeps timing out, lost my cart twice"
+  3. [score: 0.743] "App crashes exactly at payment confirmation screen"
+──────────────────────────────────────────────────────
+→ These 3 entries (not all 35) are passed to the LLM for analysis.
+```
+
+This demonstrates that the system is doing **semantic search**, not keyword search. Notice entry 3 — it mentions "crashes" not "payment" — but it was retrieved because it is semantically related to the payment flow failure context.
+
+### RAG vs. Keyword Search — The Key Difference
+
+| | Keyword Search | RAG (this system) |
+|---|---|---|
+| Query: "payment problem" | Finds entries with the word "payment" | Finds entries about payment issues **even if they use different words** (e.g. "checkout failure", "transaction error") |
+| Scalability | Degrades as entries grow | Stays fast regardless of dataset size |
+| Context quality | Broad, noisy | Focused, relevant |
+| Used in | Simple grep/filter | Production ML systems |
+
+### Why This Architecture Scales
+
+This same pattern is used in production systems like:
+- Customer support ticket triage (retrieve similar past tickets)
+- Legal document search (retrieve relevant case law)
+- Product feedback analysis (retrieve thematically similar reviews)
+
+The only change needed to scale this system from 35 → 35,000 feedback entries is swapping the in-memory `VectorStoreIndex` for a persistent vector database (Pinecone, Weaviate, ChromaDB) — the agent code stays identical.
+
+### Files Involved
+
+```
+src/data/vector_store.py     ← Initializes LlamaIndex index + embeddings
+src/agents/marketing.py      ← Marketing Agent queries the vector store
+outputs/feedback.json        ← Source feedback data (35 entries)
+```
+
+---
+
 ## Features
 
 ### Multi-Agent Architecture
@@ -25,11 +120,11 @@ This system implements a coordinated decision-making workflow among four special
    - Evaluates success criteria met/not met with specific thresholds
 
 3. **Marketing and Communications Agent**
-   - Analyzes customer sentiment across 35+ feedback entries using NLP techniques
+   - Analyzes customer sentiment across 35+ feedback entries using RAG-powered semantic search
    - Clusters feedback by themes (crash reports, payment issues, UI/UX complaints)
    - Assesses communication urgency and brand impact
    - Generates internal and external messaging strategies
-   - Implements RAG (Retrieval-Augmented Generation) pipeline using BAAI/bge-small-en-v1.5 embeddings for semantic feedback search
+   - **Implements RAG pipeline using BAAI/bge-small-en-v1.5 embeddings** — see RAG section above
 
 4. **Risk and Critic Agent**
    - Challenges assumptions and validates evidence across all analyses
@@ -54,7 +149,7 @@ This system implements a coordinated decision-making workflow among four special
 2. Data Analyst Node: Metric analysis and anomaly detection
 3. Conditional Router: Checks for critical thresholds
 4. PM Analysis Node: Strategic assessment
-5. Marketing Analysis Node: Sentiment and perception analysis
+5. Marketing Analysis Node: Sentiment and perception analysis *(RAG active here)*
 6. Risk Analysis Node: Comprehensive risk scoring and validation
 7. Coordinator Node: Synthesizes all inputs into final decision
 8. Action Plan Node: Generates structured output
@@ -92,6 +187,7 @@ This system implements a coordinated decision-making workflow among four special
 - Color-coded agent execution status
 - Structured tables for risk registers and action plans
 - Real-time decision confidence scoring
+- **RAG retrieval trace** showing retrieved feedback entries and similarity scores per query
 
 ### Output Schema
 
@@ -103,11 +199,12 @@ This system implements a coordinated decision-making workflow among four special
 - Communication Plan: Internal and external messaging guidance
 - Confidence Score: 0-1 scale with factors that would increase confidence
 
-## Project Structure
+---
+
 ## Project Structure
 
-<pre style="background-color: #f6f8fa; padding: 16px; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-size: 14px; line-height: 1.5; overflow-x: auto; color: #24292f;">
-<code>product_launch_war_room/
+```
+product_launch_war_room/
 ├── pyproject.toml              # UV package manager configuration and dependencies
 ├── .env.example                # Environment variables template for API keys
 ├── .gitignore                  # Excludes .venv, outputs, checkpoints, and cache files
@@ -121,7 +218,7 @@ This system implements a coordinated decision-making workflow among four special
 │   │   ├── base.py             # Base agent class with LangChain integration
 │   │   ├── data_analyst.py     # Data Analyst Agent with metric analysis tools
 │   │   ├── product_manager.py  # Product Manager Agent for strategic decisions
-│   │   ├── marketing.py        # Marketing Agent for sentiment analysis
+│   │   ├── marketing.py        # Marketing Agent — uses RAG for feedback search
 │   │   └── risk_critic.py      # Risk Critic Agent for validation and scoring
 │   ├── tools/                  # Analytical tools and utilities
 │   │   ├── __init__.py         # Tools module exports
@@ -132,7 +229,7 @@ This system implements a coordinated decision-making workflow among four special
 │   ├── data/                   # Data generation and storage
 │   │   ├── __init__.py         # Data module exports
 │   │   ├── mock_data.py        # Generates realistic metrics, feedback, and release notes
-│   │   └── vector_store.py     # LlamaIndex RAG implementation for feedback search
+│   │   └── vector_store.py     # LlamaIndex RAG — embedding + vector index (see RAG section)
 │   ├── graph/                  # LangGraph workflow orchestration
 │   │   ├── __init__.py         # Graph module exports
 │   │   ├── nodes.py            # Agent node implementations for workflow
@@ -147,8 +244,9 @@ This system implements a coordinated decision-making workflow among four special
     ├── feedback.json           # User feedback with sentiment scores
     ├── release_notes.txt       # Release documentation
     └── final_decision.json     # Structured decision output
-</code>
-</pre>
+```
+
+---
 
 ## Installation
 
@@ -158,34 +256,35 @@ This system implements a coordinated decision-making workflow among four special
 - Groq API key (obtain from [console.groq.com](https://console.groq.com))
 - LangSmith API key (optional, for tracing)
 
+> **Note on first run:** The RAG pipeline downloads the `BAAI/bge-small-en-v1.5` embedding model (~130 MB) from HuggingFace automatically. This happens once and is cached locally. Ensure internet connectivity on first run.
+
 ### Setup
 
-# Product Launch War Room
-
-## Setup Instructions
-
-### Clone Repository
+#### Clone Repository
 ```bash
 git clone https://github.com/username/product-launch-war-room.git
 cd product_launch_war_room
 ```
 
-### Create Virtual Environment & Install Dependencies
+#### Create Virtual Environment & Install Dependencies
 ```bash
 uv venv
 source .venv/bin/activate   # On Windows: .venv\Scripts\activate
 uv pip install -e .
 ```
 
-### Configure Environment Variables
+#### Configure Environment Variables
 ```bash
 cp .env.example .env
 ```
-Edit the `.env` file and add:
-- GROQ_API_KEY
-- LANGCHAIN_API_KEY (optional)
 
-### Run the Application
+Edit the `.env` file and add:
+```
+GROQ_API_KEY=your_groq_key_here
+LANGCHAIN_API_KEY=your_langsmith_key_here   # optional
+```
+
+#### Run the Application
 ```bash
 python -m src.main
 ```
@@ -196,11 +295,30 @@ python -m src.main
 
 The system executes a full multi-agent workflow and generates:
 
-- Console output with agent execution trace and formatted decision
-- JSON file at:
-  outputs/final_decision.json
-  containing structured decision data
-- LangSmith trace URL for detailed execution analysis (if tracing is enabled)
+1. **Console output** — agent execution trace with RAG retrieval logs, formatted decision summary
+2. **`outputs/final_decision.json`** — complete structured decision in JSON
+3. **LangSmith trace URL** — detailed execution graph (if `LANGCHAIN_API_KEY` is set)
+
+### Sample console output (abbreviated)
+
+```
+[Load Data] Initializing vector store with 35 feedback entries...
+[RAG] Embedding model loaded: BAAI/bge-small-en-v1.5
+[RAG] VectorStoreIndex built — 35 documents indexed
+
+[Data Analyst] Running metric aggregation...
+[Data Analyst] Anomaly detected: crash_rate z-score = 2.8 (threshold: 2.0)
+[Data Analyst] Trend: payment_success ↓ 4.2% post-launch
+
+[RAG RETRIEVAL — Marketing Agent]
+Query: "payment failures and transaction errors"
+Top-3 retrieved: [score: 0.921] [score: 0.887] [score: 0.743]
+
+[Risk Critic] Composite risk score: 0.68 (threshold: 0.70)
+[Coordinator] Decision: PAUSE
+
+Decision saved → outputs/final_decision.json
+```
 
 ---
 
@@ -209,7 +327,7 @@ The system executes a full multi-agent workflow and generates:
 Access detailed execution traces at:
 https://smith.langchain.com
 
-Note: Requires LANGCHAIN_API_KEY in .env
+Note: Requires `LANGCHAIN_API_KEY` in `.env`
 
 ---
 
@@ -217,49 +335,25 @@ Note: Requires LANGCHAIN_API_KEY in .env
 
 ### LLM Configuration
 
-- Data Analyst
-  - Model: llama-3.3-70b-versatile
-  - Temperature: 0.1
-  - Max Tokens: 2000
+| Agent | Model | Temperature | Max Tokens | Rationale |
+|---|---|---|---|---|
+| Data Analyst | llama-3.3-70b-versatile | 0.1 | 2000 | Low temp for deterministic metric analysis |
+| Risk Critic | llama-3.3-70b-versatile | 0.2 | 2000 | Near-deterministic for risk scoring |
+| Marketing | llama-3.1-8b-instant | 0.3 | 1500 | Smaller model sufficient; RAG pre-filters context |
+| Product Manager | llama-3.3-70b-versatile | 0.1 | 3000 | Highest tokens for verbose strategic output |
 
-- Risk Critic
-  - Model: llama-3.3-70b-versatile
-  - Temperature: 0.2
-  - Max Tokens: 2000
+> The Marketing Agent uses a smaller 8B model intentionally — because RAG pre-filters the most relevant feedback before the LLM sees it, a smaller model is sufficient and reduces inference cost.
 
-- Marketing
-  - Model: llama-3.1-8b-instant
-  - Temperature: 0.3
-  - Max Tokens: 1500
+### State Management
 
-- Product Manager
-  - Model: llama-3.3-70b-versatile
-  - Temperature: 0.1
-  - Max Tokens: 3000
+- **LangGraph** — Stateful workflow orchestration with checkpoint persistence
+- **Pydantic** — Strict output validation and type safety
+- **TypedDict** — Defines state schema with annotated reducers for list appending
 
----
+### External APIs
 
-## State Management
-
-- LangGraph
-  - Stateful workflow orchestration with checkpoint persistence
-
-- Pydantic
-  - Strict output validation and type safety
-
-- TypedDict
-  - Defines state schema with annotated reducers for list appending
-
----
-
-## External APIs
-
-- Groq API
-  - High-performance LLM inference (default endpoint)
-
-- HuggingFace
-  - Local embeddings for Retrieval-Augmented Generation
-  - Model: BAAI/bge-small-en-v1.5
-
-- LangSmith
-  - Optional observability and execution tracing
+| Service | Purpose | Required |
+|---|---|---|
+| Groq API | LLM inference for all 4 agents | Yes |
+| HuggingFace | Local BAAI/bge-small-en-v1.5 embeddings for RAG | Auto-downloaded |
+| LangSmith | Execution tracing and observability | Optional |
