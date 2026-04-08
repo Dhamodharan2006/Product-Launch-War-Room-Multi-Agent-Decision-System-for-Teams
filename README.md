@@ -106,47 +106,48 @@ This system implements a coordinated decision-making workflow among four special
 ## Project Structure
 ## Project Structure
 
-<pre>
-product_launch_war_room/
-├── pyproject.toml
-├── .env.example
-├── .gitignore
-├── README.md
-├── src/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── config.py
-│   ├── agents/
-│   │   ├── __init__.py
-│   │   ├── base.py
-│   │   ├── data_analyst.py
-│   │   ├── product_manager.py
-│   │   ├── marketing.py
-│   │   └── risk_critic.py
-│   ├── tools/
-│   │   ├── __init__.py
-│   │   ├── metrics_tools.py
-│   │   ├── sentiment_tools.py
-│   │   ├── risk_tools.py
-│   │   └── trend_tools.py
-│   ├── data/
-│   │   ├── __init__.py
-│   │   ├── mock_data.py
-│   │   └── vector_store.py
-│   ├── graph/
-│   │   ├── __init__.py
-│   │   ├── nodes.py
-│   │   ├── edges.py
-│   │   └── workflow.py
-│   └── models/
-│       ├── __init__.py
-│       ├── schemas.py
-│       └── state.py
-└── outputs/
-    ├── metrics.json
-    ├── feedback.json
-    ├── release_notes.txt
-    └── final_decision.json
+<pre style="background-color: #f6f8fa; padding: 16px; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-size: 14px; line-height: 1.5; overflow-x: auto; color: #24292f;">
+<code>product_launch_war_room/
+├── pyproject.toml              # UV package manager configuration and dependencies
+├── .env.example                # Environment variables template for API keys
+├── .gitignore                  # Excludes .venv, outputs, checkpoints, and cache files
+├── README.md                   # Project documentation and setup instructions
+├── src/                        # Source code directory
+│   ├── __init__.py             # Package initialization with version info
+│   ├── main.py                 # Application entry point and CLI interface
+│   ├── config.py               # LLM configuration and settings management
+│   ├── agents/                 # Agent implementations
+│   │   ├── __init__.py         # Agent module exports
+│   │   ├── base.py             # Base agent class with LangChain integration
+│   │   ├── data_analyst.py     # Data Analyst Agent with metric analysis tools
+│   │   ├── product_manager.py  # Product Manager Agent for strategic decisions
+│   │   ├── marketing.py        # Marketing Agent for sentiment analysis
+│   │   └── risk_critic.py      # Risk Critic Agent for validation and scoring
+│   ├── tools/                  # Analytical tools and utilities
+│   │   ├── __init__.py         # Tools module exports
+│   │   ├── metrics_tools.py    # Metric aggregation and anomaly detection
+│   │   ├── sentiment_tools.py  # Sentiment analysis and feedback clustering
+│   │   ├── risk_tools.py       # Risk scoring and rollback assessment
+│   │   └── trend_tools.py      # Trend comparison and volatility analysis
+│   ├── data/                   # Data generation and storage
+│   │   ├── __init__.py         # Data module exports
+│   │   ├── mock_data.py        # Generates realistic metrics, feedback, and release notes
+│   │   └── vector_store.py     # LlamaIndex RAG implementation for feedback search
+│   ├── graph/                  # LangGraph workflow orchestration
+│   │   ├── __init__.py         # Graph module exports
+│   │   ├── nodes.py            # Agent node implementations for workflow
+│   │   ├── edges.py            # Conditional routing logic and decision trees
+│   │   └── workflow.py         # Graph builder, compiler, and execution runner
+│   └── models/                 # Pydantic schemas and type definitions
+│       ├── __init__.py         # Models module exports
+│       ├── schemas.py          # Output validation schemas (LaunchDecision, RiskItem, etc.)
+│       └── state.py            # LangGraph state type definitions (WarRoomState)
+└── outputs/                    # Generated artifacts directory
+    ├── metrics.json            # Serialized time-series metrics
+    ├── feedback.json           # User feedback with sentiment scores
+    ├── release_notes.txt       # Release documentation
+    └── final_decision.json     # Structured decision output
+</code>
 </pre>
 
 ## Installation
