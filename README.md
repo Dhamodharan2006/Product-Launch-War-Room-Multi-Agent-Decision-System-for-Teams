@@ -160,48 +160,106 @@ This system implements a coordinated decision-making workflow among four special
 
 ### Setup
 
+# Product Launch War Room
+
+## Setup Instructions
+
+### Clone Repository
 ```bash
-# Clone repository
 git clone https://github.com/username/product-launch-war-room.git
 cd product_launch_war_room
+```
 
-# Create virtual environment and install dependencies
+### Create Virtual Environment & Install Dependencies
+```bash
 uv venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate   # On Windows: .venv\Scripts\activate
 uv pip install -e .
+```
 
-# Configure environment variables
+### Configure Environment Variables
+```bash
 cp .env.example .env
-# Edit .env with your GROQ_API_KEY and optional LANGCHAIN_API_KEY
+```
+Edit the `.env` file and add:
+- GROQ_API_KEY
+- LANGCHAIN_API_KEY (optional)
 
-# Run with 
+### Run the Application
+```bash
 python -m src.main
+```
 
-**Expected Output**
-The system executes the full multi-agent workflow and generates:
+---
 
-Console output with agent execution trace and formatted decision
+## Expected Output
 
-JSON file at outputs/final_decision.json containing structured decision data
+The system executes a full multi-agent workflow and generates:
 
-LangSmith trace URL for detailed execution analysis (if tracing enabled)
+- Console output with agent execution trace and formatted decision
+- JSON file at:
+  outputs/final_decision.json
+  containing structured decision data
+- LangSmith trace URL for detailed execution analysis (if tracing is enabled)
 
-**View Traces**
-Access detailed execution traces at https://smith.langchain.com (requires LANGCHAIN_API_KEY in .env)
+---
 
-**Technical Architecture**
-LLM Configuration
-**Data Analyst**: llama-3.3-70b-versatile (temperature 0.1, max_tokens 2000)
-**Risk Critic**: llama-3.3-70b-versatile (temperature 0.2, max_tokens 2000)
-**Marketing**: llama-3.1-8b-instant (temperature 0.3, max_tokens 1500)
-**Product Manager**: llama-3.3-70b-versatile (temperature 0.1, max_tokens 3000)
+## View Traces
 
-**State Management**
-**LangGraph**: Stateful workflow with checkpoint persistence
-**Pydantic**: Strict output validation and type safety
-**TypedDict**: State schema with Annotated reducers for list appending
+Access detailed execution traces at:
+https://smith.langchain.com
 
-**External APIs**
-**Groq API**: High-performance LLM inference (default endpoint)
-**HuggingFace**: Local embeddings for RAG (BAAI/bge-small-en-v1.5)
-**LangSmith**: Optional observability and tracing
+Note: Requires LANGCHAIN_API_KEY in .env
+
+---
+
+## Technical Architecture
+
+### LLM Configuration
+
+- Data Analyst
+  - Model: llama-3.3-70b-versatile
+  - Temperature: 0.1
+  - Max Tokens: 2000
+
+- Risk Critic
+  - Model: llama-3.3-70b-versatile
+  - Temperature: 0.2
+  - Max Tokens: 2000
+
+- Marketing
+  - Model: llama-3.1-8b-instant
+  - Temperature: 0.3
+  - Max Tokens: 1500
+
+- Product Manager
+  - Model: llama-3.3-70b-versatile
+  - Temperature: 0.1
+  - Max Tokens: 3000
+
+---
+
+## State Management
+
+- LangGraph
+  - Stateful workflow orchestration with checkpoint persistence
+
+- Pydantic
+  - Strict output validation and type safety
+
+- TypedDict
+  - Defines state schema with annotated reducers for list appending
+
+---
+
+## External APIs
+
+- Groq API
+  - High-performance LLM inference (default endpoint)
+
+- HuggingFace
+  - Local embeddings for Retrieval-Augmented Generation
+  - Model: BAAI/bge-small-en-v1.5
+
+- LangSmith
+  - Optional observability and execution tracing
