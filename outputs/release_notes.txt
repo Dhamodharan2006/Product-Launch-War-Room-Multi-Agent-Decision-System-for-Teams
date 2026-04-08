@@ -1,0 +1,23 @@
+
+# Release v2.4.0 - Advanced Analytics Dashboard
+
+## New Features
+- **Real-time Analytics Dashboard**: Live metrics visualization with customizable widgets
+- **Export API v2**: New REST endpoints for bulk data export with CSV/JSON support
+- **Enhanced Mobile Experience**: Responsive redesign of core workflows
+
+## Technical Changes
+- Database migration to PostgreSQL 15
+- Updated authentication middleware
+- New caching layer implementation (Redis)
+
+## Known Risks (Pre-Launch)
+- ⚠️ Database migration may cause temporary latency spikes
+- ⚠️ Mobile responsive changes untested on Android 12
+- ⚠️ Export API rate limits not yet stress-tested
+
+## Rollback Procedure
+1. Revert DNS to v2.3.9 cluster
+2. Execute rollback script: `./scripts/rollback-v2.4.sh`
+3. Notify users via status page
+4. Estimated downtime: 15 minutes

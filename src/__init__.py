@@ -1,0 +1,2 @@
+"""Product Launch War Room package."""
+__version__ = "0.1.0"

@@ -1,0 +1,317 @@
+[
+  {
+    "id": "fb_33",
+    "timestamp": "2026-04-02T01:31:34.380409",
+    "user_segment": "enterprise",
+    "text": "Performance feels snappier after the update.",
+    "category": "positive",
+    "sentiment_score": 0.75,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_16",
+    "timestamp": "2026-04-02T06:31:34.380409",
+    "user_segment": "free",
+    "text": "The new layout is counterintuitive.",
+    "category": "negative",
+    "sentiment_score": 0.32,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_0",
+    "timestamp": "2026-04-02T09:31:34.380409",
+    "user_segment": "pro",
+    "text": "App crashes immediately when opening dashboard after update",
+    "category": "negative",
+    "sentiment_score": 0.2936098752667805,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_1",
+    "timestamp": "2026-04-02T15:31:34.380409",
+    "user_segment": "free",
+    "text": "App crashes immediately when opening dashboard after update",
+    "category": "negative",
+    "sentiment_score": 0.25529683723744995,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_17",
+    "timestamp": "2026-04-02T18:31:34.380409",
+    "user_segment": "pro",
+    "text": "The new layout is counterintuitive.",
+    "category": "negative",
+    "sentiment_score": 0.38,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_3",
+    "timestamp": "2026-04-02T20:31:34.380409",
+    "user_segment": "enterprise",
+    "text": "Payment failed three times, lost my cart",
+    "category": "negative",
+    "sentiment_score": 0.2319281780469339,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_8",
+    "timestamp": "2026-04-02T23:31:34.380409",
+    "user_segment": "free",
+    "text": "Love the new dashboard! Makes my workflow so much faster.",
+    "category": "positive",
+    "sentiment_score": 0.81,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_28",
+    "timestamp": "2026-04-03T02:31:34.380409",
+    "user_segment": "pro",
+    "text": "UI is confusing, can't find the dashboard settings.",
+    "category": "negative",
+    "sentiment_score": 0.16,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_9",
+    "timestamp": "2026-04-03T05:31:34.380409",
+    "user_segment": "pro",
+    "text": "Crashes every time I try to use dashboard on mobile.",
+    "category": "negative",
+    "sentiment_score": 0.4,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_19",
+    "timestamp": "2026-04-03T15:31:34.380409",
+    "user_segment": "pro",
+    "text": "The new dashboard integration works perfectly with our stack.",
+    "category": "positive",
+    "sentiment_score": 0.84,
+    "source": "app_store"
+  },
+  {
+    "id": "fb_21",
+    "timestamp": "2026-04-03T15:31:34.380409",
+    "user_segment": "pro",
+    "text": "Love the new dashboard! Makes my workflow so much faster.",
+    "category": "positive",
+    "sentiment_score": 0.91,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_20",
+    "timestamp": "2026-04-04T01:31:34.380409",
+    "user_segment": "pro",
+    "text": "Would be great if it integrated with my smart fridge.",
+    "category": "outlier",
+    "sentiment_score": 0.43,
+    "source": "app_store"
+  },
+  {
+    "id": "fb_11",
+    "timestamp": "2026-04-04T04:31:34.380409",
+    "user_segment": "pro",
+    "text": "Getting constant 500 errors when accessing dashboard.",
+    "category": "negative",
+    "sentiment_score": 0.29,
+    "source": "app_store"
+  },
+  {
+    "id": "fb_22",
+    "timestamp": "2026-04-04T05:31:34.380409",
+    "user_segment": "pro",
+    "text": "Great update, the dashboard is exactly what we needed.",
+    "category": "positive",
+    "sentiment_score": 0.78,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_23",
+    "timestamp": "2026-04-04T20:31:34.380409",
+    "user_segment": "enterprise",
+    "text": "Would be great if it integrated with my smart fridge.",
+    "category": "outlier",
+    "sentiment_score": 0.55,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_31",
+    "timestamp": "2026-04-04T20:31:34.380409",
+    "user_segment": "free",
+    "text": "Love the new dashboard! Makes my workflow so much faster.",
+    "category": "positive",
+    "sentiment_score": 0.73,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_26",
+    "timestamp": "2026-04-05T02:31:34.380409",
+    "user_segment": "pro",
+    "text": "Performance feels snappier after the update.",
+    "category": "positive",
+    "sentiment_score": 0.85,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_6",
+    "timestamp": "2026-04-05T05:31:34.380409",
+    "user_segment": "free",
+    "text": "Need ASCII art export functionality urgently.",
+    "category": "outlier",
+    "sentiment_score": 0.5,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_7",
+    "timestamp": "2026-04-05T05:31:34.380409",
+    "user_segment": "enterprise",
+    "text": "Getting constant 500 errors when accessing dashboard.",
+    "category": "negative",
+    "sentiment_score": 0.33,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_24",
+    "timestamp": "2026-04-05T09:31:34.380409",
+    "user_segment": "free",
+    "text": "Great update, the dashboard is exactly what we needed.",
+    "category": "positive",
+    "sentiment_score": 0.75,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_10",
+    "timestamp": "2026-04-05T14:31:34.380409",
+    "user_segment": "pro",
+    "text": "UI is confusing, can't find the dashboard settings.",
+    "category": "negative",
+    "sentiment_score": 0.18,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_32",
+    "timestamp": "2026-04-05T14:31:34.380409",
+    "user_segment": "free",
+    "text": "Great update, the dashboard is exactly what we needed.",
+    "category": "positive",
+    "sentiment_score": 0.75,
+    "source": "app_store"
+  },
+  {
+    "id": "fb_34",
+    "timestamp": "2026-04-06T07:31:34.380409",
+    "user_segment": "enterprise",
+    "text": "The new dashboard integration works perfectly with our stack.",
+    "category": "positive",
+    "sentiment_score": 0.8,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_5",
+    "timestamp": "2026-04-06T15:31:34.380409",
+    "user_segment": "free",
+    "text": "Where did the export button go? Can't find it anywhere",
+    "category": "negative",
+    "sentiment_score": 0.1742504624476247,
+    "source": "app_store"
+  },
+  {
+    "id": "fb_4",
+    "timestamp": "2026-04-06T18:31:34.380409",
+    "user_segment": "free",
+    "text": "Where did the export button go? Can't find it anywhere",
+    "category": "negative",
+    "sentiment_score": 0.21075689644418416,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_25",
+    "timestamp": "2026-04-06T19:31:34.380409",
+    "user_segment": "pro",
+    "text": "Performance feels snappier after the update.",
+    "category": "positive",
+    "sentiment_score": 0.77,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_27",
+    "timestamp": "2026-04-06T19:31:34.380409",
+    "user_segment": "free",
+    "text": "Performance feels snappier after the update.",
+    "category": "positive",
+    "sentiment_score": 0.94,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_13",
+    "timestamp": "2026-04-06T23:31:34.380409",
+    "user_segment": "enterprise",
+    "text": "Can you add blockchain support to dashboard?",
+    "category": "outlier",
+    "sentiment_score": 0.47,
+    "source": "app_store"
+  },
+  {
+    "id": "fb_15",
+    "timestamp": "2026-04-07T01:31:34.380409",
+    "user_segment": "pro",
+    "text": "Getting constant 500 errors when accessing dashboard.",
+    "category": "negative",
+    "sentiment_score": 0.36,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_18",
+    "timestamp": "2026-04-07T01:31:34.380409",
+    "user_segment": "free",
+    "text": "The new dashboard integration works perfectly with our stack.",
+    "category": "positive",
+    "sentiment_score": 0.83,
+    "source": "app_store"
+  },
+  {
+    "id": "fb_12",
+    "timestamp": "2026-04-07T06:31:34.380409",
+    "user_segment": "enterprise",
+    "text": "Finally! Been waiting for dashboard for months.",
+    "category": "positive",
+    "sentiment_score": 0.92,
+    "source": "in_app"
+  },
+  {
+    "id": "fb_2",
+    "timestamp": "2026-04-07T20:31:34.380409",
+    "user_segment": "pro",
+    "text": "Payment failed three times, lost my cart",
+    "category": "negative",
+    "sentiment_score": 0.18978635134784777,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_14",
+    "timestamp": "2026-04-07T21:31:34.380409",
+    "user_segment": "enterprise",
+    "text": "UI is much cleaner now. Good job team.",
+    "category": "positive",
+    "sentiment_score": 0.79,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_30",
+    "timestamp": "2026-04-08T05:31:34.380409",
+    "user_segment": "pro",
+    "text": "Performance feels snappier after the update.",
+    "category": "positive",
+    "sentiment_score": 0.86,
+    "source": "support_ticket"
+  },
+  {
+    "id": "fb_29",
+    "timestamp": "2026-04-08T10:31:34.380409",
+    "user_segment": "free",
+    "text": "UI is much cleaner now. Good job team.",
+    "category": "positive",
+    "sentiment_score": 0.74,
+    "source": "support_ticket"
+  }
+]

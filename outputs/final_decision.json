@@ -1,0 +1,37 @@
+{
+  "decision": "Proceed",
+  "rationale": {
+    "key_drivers": [
+      "Standard monitoring"
+    ],
+    "metric_references": {
+      "crash_rate": "1.13% (current)",
+      "avg_sentiment": "0.5/1.0"
+    },
+    "feedback_summary": "{\n  \"assessment\": \"The current customer sentiment is neutral, indicating a lack of strong emotions or opinions about the brand.\",\n   \"recommended_strategy\": \"Develop a proactive communication approach to engage customers, build trust, and foster a positive brand image, focusing on highlighting brand values and customer benefits.\"\n}"
+  },
+  "risk_register": [],
+  "action_plan": {
+    "next_24_48_hours": [
+      {
+        "action": "Monitor crash rate hourly",
+        "owner": "Data Analyst",
+        "due_hours": 24
+      },
+      {
+        "action": "Prepare customer communication",
+        "owner": "Marketing",
+        "due_hours": 48
+      }
+    ]
+  },
+  "communication_plan": {
+    "internal": "Launch status: Proceed. Risk level: 0.21",
+    "external": "We are monitoring performance closely"
+  },
+  "confidence_score": 0.79,
+  "what_would_increase_confidence": [
+    "48 hours of stable metrics",
+    "Root cause analysis of anomalies"
+  ]
+}
