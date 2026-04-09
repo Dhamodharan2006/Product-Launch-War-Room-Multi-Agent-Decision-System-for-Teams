@@ -53,7 +53,7 @@ def build_war_room_graph():
 
 def run_war_room(metrics, feedback, release_notes, thread_id: str = None):
     """Execute the war room workflow with full traceability."""
-    settings.ensure_checkpoint_dir()
+    settings.ensure_directories()
     
     # Initialize tracer
     run_id = thread_id or str(uuid.uuid4())[:8]
