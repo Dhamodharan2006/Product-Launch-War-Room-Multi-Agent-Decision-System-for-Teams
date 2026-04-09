@@ -1,13 +1,13 @@
 """Agents package initialization."""
 
-from src.agents.data_analyst import DataAnalystAgent
-from src.agents.product_manager import ProductManagerAgent
-from src.agents.marketing import MarketingAgent
-from src.agents.risk_critic import RiskCriticAgent
+from agents.data_analyst import DataAnalystAgent      # ← remove src.
+from agents.product_manager import ProductManagerAgent
+from agents.marketing import MarketingAgent
+from agents.risk_critic import RiskCriticAgent
 
 __all__ = [
     "DataAnalystAgent",
-    "ProductManagerAgent",
+    "ProductManagerAgent", 
     "MarketingAgent",
     "RiskCriticAgent",
 ]
