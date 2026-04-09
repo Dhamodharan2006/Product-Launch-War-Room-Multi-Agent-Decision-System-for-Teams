@@ -7,7 +7,7 @@ from rich.console import Console
 
 from src.models.state import WarRoomState
 from src.agents import DataAnalystAgent, ProductManagerAgent, MarketingAgent, RiskCriticAgent
-from utils.tracer import tracer
+from src.utils.tracer import tracer
 
 console = Console()
 
